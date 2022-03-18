@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-//È¸¿ø°¡ÀÔ, È¸¿øÁ¤º¸¼öÁ¤, ·Î±×ÀÎ, ·Î±×¾Æ¿ô
+//íšŒì›ê°€ì…, íšŒì›ì •ë³´ìˆ˜ì •, ë¡œê·¸ì¸, ë¡œê·¸ì•„ì›ƒ
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,57 +22,57 @@ public class MemberController {
 	@Inject
 	MemberService service;
 	
-	// È¸¿ø°¡ÀÔÆûÀ¸·Î ÀÌµ¿ÇÏ´Â ¸ÅÇÎ
+	// íšŒì›ê°€ì…í¼ìœ¼ë¡œ ì´ë™í•˜ëŠ” ë§¤í•‘
 	@GetMapping("memberForm")
 	public String memberForm() {
-		return "member/memberForm"; // memberÆú´õ¿¡ memberForm.jspÆÄÀÏÀ» ºä·Î »ç¿ëÇÑ´Ù.
+		return "member/memberForm"; // memberí´ë”ì— memberForm.jspíŒŒì¼ì„ ë·°ë¡œ ì‚¬ìš©í•œë‹¤.
 	}
 	
 	
-	// È¸¿øµî·Ï
+	// íšŒì›ë“±ë¡
 	// @RequestMapping(value="/member/memberOk",method=RequestMethod.POST)
 	@PostMapping("memberOk")
 	public String memberFormOk(MemberVO vo, Model model) {
-		// È¸¿øµî·Ï
+		// íšŒì›ë“±ë¡
 		int cnt = service.memberInsert(vo);
 		
-		// Å¬¶óÀÌ¾ğÆ® ÆäÀÌÁö·Î insert °á°ú¸¦ º¸³½´Ù.
+		// í´ë¼ì´ì–¸íŠ¸ í˜ì´ì§€ë¡œ insert ê²°ê³¼ë¥¼ ë³´ë‚¸ë‹¤.
 		model.addAttribute("cnt",cnt);
 		return "member/memberResult";
 	}
 	
-	// ·Î±×ÀÎÆûÀ¸·Î ÀÌµ¿
+	// ë¡œê·¸ì¸í¼ìœ¼ë¡œ ì´ë™
 	@GetMapping("loginForm")
 	public String loginForm() {
 		return "member/loginForm";
 	}
 	
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	@PostMapping("loginOk")
 	public ModelAndView loginOk(MemberVO vo, HttpSession session) {
-		// request userid, userpwd¿Í ÀÏÄ¡ÇÏ´Â ·¹ÄÚµåÀÇ userid, usernameÀ» ¼±ÅÃÇÑ´Ù.
+		// request userid, userpwdì™€ ì¼ì¹˜í•˜ëŠ” ë ˆì½”ë“œì˜ userid, usernameì„ ì„ íƒí•œë‹¤.
 		MemberVO vo2 = service.loginCheck(vo);
 		
 		ModelAndView mav = new ModelAndView();
 		if(vo2!=null){
-			// ·Î±×ÀÎ ¼º°ø : session¿¡ ¾ÆÀÌµğ¿Í ÀÌ¸§À» ÀúÀåÇÑ´Ù. > È¨À¸·Î ÀÌµ¿
+			// ë¡œê·¸ì¸ ì„±ê³µ : sessionì— ì•„ì´ë””ì™€ ì´ë¦„ì„ ì €ì¥í•œë‹¤. > í™ˆìœ¼ë¡œ ì´ë™
 			session.setAttribute("logId",vo2.getUserid());
 			session.setAttribute("logName", vo2.getUsername());
 			session.setAttribute("logStatus","Y");
-			// ÄÁÆ®·Ñ·¯¿¡¼­ ´Ù¸¥ ÄÁÆ®·Ñ·¯ ¸ÅÇÎÁÖ¼Ò¸¦ ¹Ù·Î È£ÃâÇÑ´Ù.
+			// ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë‹¤ë¥¸ ì»¨íŠ¸ë¡¤ëŸ¬ ë§¤í•‘ì£¼ì†Œë¥¼ ë°”ë¡œ í˜¸ì¶œí•œë‹¤.
 			mav.setViewName("redirect:/");
 		}else {
-			// ·Î±×ÀÎ ½ÇÆĞ : ·Î±×ÀÎ ÆûÀ¸·Î ÀÌµ¿
+			// ë¡œê·¸ì¸ ì‹¤íŒ¨ : ë¡œê·¸ì¸ í¼ìœ¼ë¡œ ì´ë™
 			mav.setViewName("redirect:loginForm");
 		}
 		return mav;
 	}
 	
-	// ·Î±×¾Æ¿ô
+	// ë¡œê·¸ì•„ì›ƒ
 	@GetMapping("logout")
 	public ModelAndView logout(HttpSession session) {
-		// ¼¼¼Ç °´Ã¼¸¦ Áö¿ì¸é ¼¼¼Ç¿¡ ÀúÀåµÈ ·Î±×ÀÎÁ¤º¸ µî ¸ğµçµ¥ÀÌÅÍ°¡ »èÁ¦µÇ°í
-		// »õ·Î¿î ¼¼¼ÇÀ» ÇÒ´çÇÑ´Ù.
+		// ì„¸ì…˜ ê°ì²´ë¥¼ ì§€ìš°ë©´ ì„¸ì…˜ì— ì €ì¥ëœ ë¡œê·¸ì¸ì •ë³´ ë“± ëª¨ë“ ë°ì´í„°ê°€ ì‚­ì œë˜ê³ 
+		// ìƒˆë¡œìš´ ì„¸ì…˜ì„ í• ë‹¹í•œë‹¤.
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView();
@@ -80,7 +80,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	// È¸¿øÁ¤º¸¼öÁ¤ (Æû)
+	// íšŒì›ì •ë³´ìˆ˜ì • (í¼)
 	@GetMapping("memberEdit")
 	public ModelAndView memberEdit(HttpSession session) {
 		String userid = (String)session.getAttribute("logId");
@@ -94,10 +94,10 @@ public class MemberController {
 		return mav;
 	}
 	
-	// È¸¿øÁ¤º¸¼öÁ¤ (DB)
+	// íšŒì›ì •ë³´ìˆ˜ì • (DB)
 	@PostMapping("memberEditOk")
 	public ModelAndView memberEditOk(MemberVO vo, HttpSession session) {
-		// session ·Î±×ÀÎ ¾ÆÀÌµğ 
+		// session ë¡œê·¸ì¸ ì•„ì´ë”” 
 		vo.setUserid((String)session.getAttribute("logId"));
 		
 		service.memberUpdate(vo);
@@ -107,7 +107,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	// ¾ÆÀÌµğ Áßº¹°Ë»ç
+	// ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬
 	@PostMapping("memberIdCheck")
 	@ResponseBody
 	public int idCheck(String userid) {

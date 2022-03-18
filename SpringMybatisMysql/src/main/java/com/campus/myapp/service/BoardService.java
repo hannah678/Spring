@@ -6,7 +6,7 @@ import com.campus.myapp.vo.BoardVO;
 import com.campus.myapp.vo.PagingVO;
 
 public interface BoardService {
-	//±Ûµî·Ï
+	//ï¿½Ûµï¿½ï¿½
 	public int boardInsert(BoardVO vo);
 	
 	public List<BoardVO> boardList(PagingVO pVO);
@@ -20,4 +20,6 @@ public interface BoardService {
 	public int boardUpdate(BoardVO vo);
 	
 	public int boardDelete(int no, String userid);
+	
+	public int boardMultiDelete(BoardVO vo);
 }

@@ -9,21 +9,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public final class LoginInterceptor extends HandlerInterceptorAdapter {
-	//ÄÁÆ®·Ñ·¯°¡ È£ÃâµÇ±â Àü¿¡ ½ÇÇàµÉ ¸Ş¼Òµå
+	//ì»¨íŠ¸ë¡¤ëŸ¬ê°€ í˜¸ì¶œë˜ê¸° ì „ì— ì‹¤í–‰ë  ë©”ì†Œë“œ
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//false: ·Î±×ÀÎÀ¸·Î º¸³»±â
-		//true: ÇØ´çÄÁÆ®·Ñ·¯·Î ÀÌµ¿ÇÑ´Ù.
+		//false: ë¡œê·¸ì¸ìœ¼ë¡œ ë³´ë‚´ê¸°
+		//true: í•´ë‹¹ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ ì´ë™í•œë‹¤.
 		
-		//request°´Ã¼¿¡¼­ session°´Ã¼¸¦ ¾ò¾î¿À±â
+		//requestê°ì²´ì—ì„œ sessionê°ì²´ë¥¼ ì–»ì–´ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		
-		//·Î±×ÀÎ »óÅÂ±¸ÇÏ±â null
+		//ë¡œê·¸ì¸ ìƒíƒœêµ¬í•˜ê¸° null
 		String logStatus = (String) session.getAttribute("logStatus");
 		
-		if(logStatus !=null && logStatus.equals("Y")) { //·Î±×ÀÎµÇ¾úÀ» ¶§
-			return true; //°¡´ø±æ °¡±â
-		}else { //·Î±×ÀÎ ¾È µÈ °æ¿ì
-			//·Î±×ÀÎ Æû ÆäÀÌÁö·Î ÀÌµ¿
+		if(logStatus !=null && logStatus.equals("Y")) { //ë¡œê·¸ì¸ë˜ì—ˆì„ ë•Œ
+			return true; //ê°€ë˜ê¸¸ ê°€ê¸°
+		}else { //ë¡œê·¸ì¸ ì•ˆ ëœ ê²½ìš°
+			//ë¡œê·¸ì¸ í¼ í˜ì´ì§€ë¡œ ì´ë™
 			response.sendRedirect(request.getContextPath()+"/member/loginForm");
 			return false;
 		}

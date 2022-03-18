@@ -50,5 +50,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardDelete(no, userid);
 	}
 
+	@Override
+	public int boardMultiDelete(BoardVO vo) {
+		return dao.boardMultiDelete(vo);
+	}
+
 
 }

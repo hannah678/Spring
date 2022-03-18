@@ -21,23 +21,23 @@ import com.campus.myapp.vo.BoardVO;
 import com.campus.myapp.vo.PagingVO;
 
 @RestController		//Controller + @ResponseBody
-@RequestMapping("/board/*") //¾Æ½ºÆ®¸¯('*')À» ºÙ¿©¼­ ¸ğµÎ¸¦ ÁöÄªÇØµµ µÈ´Ù.
+@RequestMapping("/board/*") //ì•„ìŠ¤íŠ¸ë¦­('*')ì„ ë¶™ì—¬ì„œ ëª¨ë‘ë¥¼ ì§€ì¹­í•´ë„ ëœë‹¤.
 public class BoardController {
 	
 	//	/board/boardList
 	@Inject
-	BoardService service; //ÄÁÆ®·Ñ·¯¿£ ¼­ºñ½ºÀÓÇÃÀÌ ¾Æ´Ï¶ó ¼­ºñ½º °¡Á®¿À±â
-	//±Û¸ñ·Ï
+	BoardService service; //ì»¨íŠ¸ë¡¤ëŸ¬ì—” ì„œë¹„ìŠ¤ì„í”Œì´ ì•„ë‹ˆë¼ ì„œë¹„ìŠ¤ ê°€ì ¸ì˜¤ê¸°
+	//ê¸€ëª©ë¡
 	@GetMapping("boardList")
 	public ModelAndView boardList(PagingVO pVO) {
 		System.out.println(pVO.getSearchWord());
 		
 		ModelAndView mav = new ModelAndView();
 		
-		//ÃÑ·¹ÄÚµå¼ö
+		//ì´ë ˆì½”ë“œìˆ˜
 		pVO.setTotalRecord(service.totalRecord(pVO));
 		
-		//DBÃ³¸®
+		//DBì²˜ë¦¬
 		mav.addObject("list", service.boardList(pVO));
 		mav.addObject("pVO", pVO);
 		
@@ -45,7 +45,7 @@ public class BoardController {
 		return mav;
 		
 	}
-	//±Ûµî·Ï Æû***************************************************
+	//ê¸€ë“±ë¡ í¼***************************************************
 	@GetMapping("boardWrite")
 	public ModelAndView boardWrite() {
 		ModelAndView mav = new ModelAndView();
@@ -53,58 +53,58 @@ public class BoardController {
 		return mav;
 	}
 	
-	//±Ûµî·Ï***************************************************
+	//ê¸€ë“±ë¡***************************************************
 	@PostMapping("boardWriteOk")
 	public ResponseEntity boardWriteOk(BoardVO vo, HttpServletRequest request) {
-		vo.setIp(request.getRemoteAddr()); //Á¢¼ÓÀÚ ¾ÆÀÌÇÇ
-		//±Û¾´ÀÌ.session·Î±×ÀÎ ¾ÆÀÌµğ¸¦ ±¸ÇÑ´Ù.
+		vo.setIp(request.getRemoteAddr()); //ì ‘ì†ì ì•„ì´í”¼
+		//ê¸€ì“´ì´.sessionë¡œê·¸ì¸ ì•„ì´ë””ë¥¼ êµ¬í•œë‹¤.
 		vo.setUserid((String)request.getSession().getAttribute("logId"));
 		
-		ResponseEntity<String> entity = null; //µ¥ÀÌÅÍ¿Í Ã³¸®»óÅÂ¸¦ °¡Áø´Ù.
+		ResponseEntity<String> entity = null; //ë°ì´í„°ì™€ ì²˜ë¦¬ìƒíƒœë¥¼ ê°€ì§„ë‹¤.
 		HttpHeaders headers = new HttpHeaders();
 		
 		/*
 		
 		headers.add("Content-Type", "text/html; charset=utf-8");
 		headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-		À§ÀÇ µÑÁß¿¡ ÇÏ³ª¸¸ °ñ¶ó¾²¸é µÈ´Ù.
+		ìœ„ì˜ ë‘˜ì¤‘ì— í•˜ë‚˜ë§Œ ê³¨ë¼ì“°ë©´ ëœë‹¤.
 		*/
 		headers.add("Content-Type", "text/html; charset=utf-8");
 		
 		try {
 			service.boardInsert(vo);
-			//Á¤»ó±¸Çö
+			//ì •ìƒêµ¬í˜„
 			String 	msg  = "<script>";
-					msg += "alert('±ÛÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.');";
+					msg += "alert('ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.');";
 					msg += "location.href='/myapp/board/boardList';";
 					msg += "</script>";
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK); // 200
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			//µî·Ï¾ÈµÊ..
+			//ë“±ë¡ì•ˆë¨..
 			String  msg  = "<script>";
-					msg += "alert('±Û µî·Ï ½ÇÆĞÇÏ¿´½À´Ï´Ù');";
+					msg += "alert('ê¸€ ë“±ë¡ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤');";
 					msg += "history.back();";
 					msg += "</script>";	
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-	//±Û³»¿ë º¸±â
+	//ê¸€ë‚´ìš© ë³´ê¸°
 	@GetMapping("boardView")
 	public ModelAndView boardView(int no) {
 		ModelAndView mav = new ModelAndView();
 		
-		service.hitCount(no); //Á¶È¸¼ö Áõ°¡
+		service.hitCount(no); //ì¡°íšŒìˆ˜ ì¦ê°€
 		
 		mav.addObject("vo", service.boardSelect(no));
 		mav.setViewName("board/boardView");
 		
 		return mav;
 	}
-	//±Û¼öÁ¤ Æû
-	// ±Û¼öÁ¤ Æû
+	//ê¸€ìˆ˜ì • í¼
+	// ê¸€ìˆ˜ì • í¼
     @GetMapping("boardEdit")
     public ModelAndView boardEdit(int no) {
         ModelAndView mav = new ModelAndView();
@@ -114,7 +114,7 @@ public class BoardController {
         
         return mav;
     }
-	//±Û¼öÁ¤ (DB)
+	//ê¸€ìˆ˜ì • (DB)
 		@PostMapping("boardEditOk")
 		public  ResponseEntity<String> boardEditOk(BoardVO vo, HttpSession session) {
 			ResponseEntity<String> entity = null;
@@ -124,19 +124,19 @@ public class BoardController {
 			vo.setUserid((String)session.getAttribute("logId"));
 			try {
 				int result = service.boardUpdate(vo);
-				if(result>0){//¼öÁ¤¼º°ø
+				if(result>0){//ìˆ˜ì •ì„±ê³µ
 					entity = new ResponseEntity<String>(getEditSuccessMessage(vo.getNo()), headers, HttpStatus.OK);
-				}else {//¼öÁ¤½ÇÆĞ
+				}else {//ìˆ˜ì •ì‹¤íŒ¨
 					entity = new ResponseEntity<String>(getEditFailMessage(), headers, HttpStatus.BAD_REQUEST);
 				}
 				
-			}catch(Exception e) {//¼öÁ¤½ÇÆĞ
+			}catch(Exception e) {//ìˆ˜ì •ì‹¤íŒ¨
 				e.printStackTrace();
 				entity = new ResponseEntity<String>(getEditFailMessage(), headers, HttpStatus.BAD_REQUEST);
 			}
 			return entity;
 		}
-		//±Û»èÁ¦
+		//ê¸€ì‚­ì œ
 		@GetMapping("boardDel")
 		public ModelAndView boardDel(int no, HttpSession session) {
 			String userid = (String)session.getAttribute("logId");
@@ -144,31 +144,39 @@ public class BoardController {
 			int result = service.boardDelete(no, userid);
 			
 			ModelAndView mav = new ModelAndView();
-			if(result>0) { //»èÁ¦
+			if(result>0) { //ì‚­ì œ
 				mav.setViewName("redirect:boardList");
-			} else { //»èÁ¦¾ÈµÊ
+			} else { //ì‚­ì œì•ˆë¨
 				mav.addObject("no", no);
 				mav.setViewName("redirect:boardView");
 			}
 			return mav;
 		}
-		//±Û¼öÁ¤ ¸Ş¼¼Áö ¸®ÅÏ ¸Ş¼Òµå
+		//ê¸€ìˆ˜ì • ë©”ì„¸ì§€ ë¦¬í„´ ë©”ì†Œë“œ
 		public String getEditFailMessage() {
 			String msg="<script>";
-			msg += "alert('±Û¼öÁ¤ ½ÇÆĞÇß½À´Ï´Ù.\\n¼öÁ¤ÆûÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.');";
+			msg += "alert('ê¸€ìˆ˜ì • ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.\\nìˆ˜ì •í¼ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.');";
 			msg += "history.back();";
 			msg += "</script>";
 			return msg;
 		}
 		public String getEditSuccessMessage(int no) {
 			String msg="<script>";
-			msg += "alert('±ÛÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù.\\n±Û ³»¿ë ÆäÀÌÁö·Î ÀÌµ¿ÇÕ´Ï´Ù.');";
+			msg += "alert('ê¸€ì´ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\\nê¸€ ë‚´ìš© í˜ì´ì§€ë¡œ ì´ë™í•©ë‹ˆë‹¤.');";
 			msg += "location.href='/myapp/board/boardView?no="+no+"'";
 			msg += "</script>";
 			return msg;
 		}
+		//ì—¬ëŸ¬ê°œ ë ˆì½”ë“œ ì‚­ì œ
+		@PostMapping("multiDel")
+		public ModelAndView multiDelete(BoardVO vo, HttpSession session) {
+			vo.setUserid((String)session.getAttribute("logId"));
+		
+			ModelAndView mav = new ModelAndView();
+			
+			service.boardMultiDelete(vo);
+			
+			mav.setViewName("redirect:boardList");
+			return mav;
+		}
 }
-
-
-
-

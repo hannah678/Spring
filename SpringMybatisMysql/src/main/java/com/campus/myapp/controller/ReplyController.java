@@ -21,28 +21,28 @@ public class ReplyController {
 	@Inject
 	ReplyService service;
 	
-		//´ñ±Ûµî·Ï
+		//ëŒ“ê¸€ë“±ë¡
 		@RequestMapping(value="/reply/writeOk", method=RequestMethod.POST)
 		public int writeOk(ReplyVO vo, HttpSession session) {
-			//1) DBÀÇ replyBoard¿¡ ÀúÀåÇÒ userid¸¦ sessionÀÇ logId°ªÀ¸·Î ÁöÁ¤(ÇöÀç ·Î±×ÀÎµÈ ¾ÆÀÌµğ)
+			//1) DBì˜ replyBoardì— ì €ì¥í•  useridë¥¼ sessionì˜ logIdê°’ìœ¼ë¡œ ì§€ì •(í˜„ì¬ ë¡œê·¸ì¸ëœ ì•„ì´ë””)
 			vo.setUserid((String)session.getAttribute("logId"));	
-			//2) ÇØ´ç ¾ÆÀÌµğ·Î, ´ñ±Û µî·Ï(sql)
+			//2) í•´ë‹¹ ì•„ì´ë””ë¡œ, ëŒ“ê¸€ ë“±ë¡(sql)
 			return service.replyWrite(vo);
 		}
-		// ´ñ±Û ¸ñ·Ï
+		// ëŒ“ê¸€ ëª©ë¡
 	    @GetMapping("/reply/list")
 	    public List<ReplyVO> list(int no) {
-	        return service.replyList(no);  // ListÀüÃ¼¸¦ ±¸ÇØ¼­ returnÇØÁØ´Ù. (º¯¼ö¿¡ ´ã¾Æ¼­ º¸³»ÁÙ ÇÊ¿ä xx)
+	        return service.replyList(no);  // Listì „ì²´ë¥¼ êµ¬í•´ì„œ returní•´ì¤€ë‹¤. (ë³€ìˆ˜ì— ë‹´ì•„ì„œ ë³´ë‚´ì¤„ í•„ìš” xx)
 	    }
 	    
-	    // ´ñ±Û ¼öÁ¤
+	    // ëŒ“ê¸€ ìˆ˜ì •
 	    @PostMapping("/reply/editOk")
 	    public int editOk(ReplyVO vo, HttpSession session) {
 	    	vo.setUserid((String)session.getAttribute("logId"));
 	    	return service.replyEdit(vo);
 	    }
 	    
-	    //´ñ±Û »èÁ¦
+	    //ëŒ“ê¸€ ì‚­ì œ
 	    @GetMapping("/reply/del")
 	    public int delOk(int replyno, HttpSession session) {
 	    	return service.replyDel(replyno, (String)session.getAttribute("logId"));

@@ -5,12 +5,12 @@ import java.util.List;
 import com.campus.myapp.vo.ReplyVO;
 
 public interface ReplyDAO {
-	//´ñ±Ûµî·Ï
+	//ëŒ“ê¸€ë“±ë¡
 	public int replyWrite(ReplyVO vo);
-	//´ñ±Û¸ñ·Ï
+	//ëŒ“ê¸€ëª©ë¡
 	public List<ReplyVO> replyList(int no);
-	//´ñ±Û¼öÁ¤
-	public int replyEdit(ReplyVO vo); //¹øÈ£, ¾ÆÀÌµğ, ÄÚ¸àÆ® µî ´Ù ÇÊ¿ä ->VO
-	//´ñ±Û»èÁ¦
+	//ëŒ“ê¸€ìˆ˜ì •
+	public int replyEdit(ReplyVO vo); //ë²ˆí˜¸, ì•„ì´ë””, ì½”ë©˜íŠ¸ ë“± ë‹¤ í•„ìš” ->VO
+	//ëŒ“ê¸€ì‚­ì œ
 	public int replyDel(int replyno, String userid);
 }
