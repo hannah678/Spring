@@ -1,6 +1,9 @@
 package com.campus.myapp.vo;
 
+import java.util.List;
+
 public class BoardVO {
+
 	private int no;
 	private String subject;
 	private String content;
@@ -8,6 +11,19 @@ public class BoardVO {
 	private int hit;
 	private String writedate;
 	private String ip;
+	
+	//private int[] noList;
+	
+	private List<Integer> noList;
+	
+	public List<Integer> getNoList() {
+		return noList;
+	}
+	public void setNoList(List<Integer> noList) {
+		this.noList = noList;
+	}
+	
+	////////////////////////
 	
 	public int getNo() {
 		return no;
@@ -51,5 +67,4 @@ public class BoardVO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-
 }
