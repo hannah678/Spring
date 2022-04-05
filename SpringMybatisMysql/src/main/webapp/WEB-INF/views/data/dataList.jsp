@@ -34,6 +34,5 @@
 		</li>
 		<li>${vo.writedate}</li>
 		</c:forEach>
-		
 	</ul>
 </div>

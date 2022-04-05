@@ -1,0 +1,27 @@
+@charset "UTF-8";
+body,ul,li{
+	margin:0; padding:0; list-style-type:none;
+}
+.container{
+	width:1000px; margin:0 auto;
+	overflow:auto;
+}
+
+.bottom{
+	height:50px; text-align:center;
+	color:white; background-color:gray;
+}
+
+.topMenu{
+	background-color:lightblue;
+	height:80px;
+}
+
+.topMenu>li{
+    float:left;
+    width:33%;
+    height:80px;
+    line-height:80px;
+    font-size:1.4em;
+    text-align:center;
+}

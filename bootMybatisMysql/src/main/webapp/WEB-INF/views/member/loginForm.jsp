@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <style>
 #log {
 	width: 400px;
@@ -53,7 +52,7 @@
 	<div id="log">
 		<h1>로그인</h1>
 		<hr />
-		<form method="post" action="/myapp/member/loginOk" id="logFrm" onsubmit="return logFormCheck()">
+		<form method="post" action="/member/loginOk" id="logFrm" onsubmit="return logFormCheck()">
 			<ul>
 				<li>아이디</li>
 				<li><input type="text" name="userid" id="userid"/></li>

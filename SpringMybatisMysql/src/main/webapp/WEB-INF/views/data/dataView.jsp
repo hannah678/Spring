@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <script>
 	function dataDelCheck(){
 		if(confirm("삭제하시겠습니까?")){

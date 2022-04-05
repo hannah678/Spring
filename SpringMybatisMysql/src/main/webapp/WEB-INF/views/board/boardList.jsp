@@ -86,7 +86,7 @@
 			<li>글쓴이</li>
 			<li>조회수</li>
 			<li>등록일</li>
-			<!-- 컨트롤러의 mav.addObject("list", service.boardList());의 lsit값 -->
+			<!-- 컨트롤러의 mav.addObject("list", service.boardList());의 list값 -->
 			<c:forEach var="vo" items="${list}">
 				<li><input type='checkbox' name='noList' value='${vo.no}' class="chk"/></li>
 				<li>${vo.no}</li>

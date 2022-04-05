@@ -41,16 +41,16 @@
 	});
 </script>
 <div class="container">
-	<h1>자료실 글수정 폼</h1>
+	<h1><span style="font-family:'Nanum Gothic Coding' !important;">자료실 글 수정</span></h1>
 	<!-- 파일업로드 기능이 있는 폼은 반드시 enctype속성을 명시해야한다. -->
 	<form id="dataFrm" method="post" action="/myapp/data/editOk" enctype="multipart/form-data">
 		<input type="hidden" name="no" value="${vo.no}"/>	
 		<ul>
-			<li>제목</li>
+			<li><span style="font-family:'Nanum Gothic Coding' !important;">제목</span></li>
 			<li><input type="text" name="subject" id="subject" value="${vo.subject}"/></li>
-			<li>글내용</li>
+			<li><span style="font-family:'Nanum Gothic Coding' !important;">글내용</span></li>
 			<li><textarea name="content" id="content">${vo.content }</textarea></li>
-			<li>첨부파일</li>
+			<li><span style="font-family:'Nanum Gothic Coding' !important;">첨부파일</span></li>
 			<li>
 				<!-- 첫번째 첨부파일 -->
 				<div>${vo.filename1} &nbsp;&nbsp;<b>X</b></div>
@@ -72,7 +72,7 @@
                     <input type="file" name="filename" id="filename2"/>
                  </c:if>
 			</li>
-			<li><input type="submit" value="자료실글수정"/></li>
+			<li><span style="font-family:'Nanum Gothic Coding' !important;"><input type="submit" value="자료실글수정"/></span></li>
 		</ul>
 	</form>
 </div>	
